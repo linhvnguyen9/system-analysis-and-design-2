@@ -1,5 +1,7 @@
 package net.codejava.javaee.bookstore;
 
+import net.codejava.javaee.bookstore.dao.BookDAO;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;

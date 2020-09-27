@@ -1,4 +1,6 @@
-package net.codejava.javaee.bookstore;
+package net.codejava.javaee.bookstore.dao;
+
+import net.codejava.javaee.bookstore.Book;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +11,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-class BookDAO {
+public class BookDAO {
     private String jdbcURL;
     private String jdbcUsername;
     private String jdbcPassword;
