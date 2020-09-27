@@ -1,0 +1,63 @@
+create database baitap3;
+
+create table `account`(
+	`id` int(10) NOT NULL AUTO_INCREMENT,
+    `username` varchar(128) NOT NULL,
+	`password` varchar(45) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `account_id_UNIQUE` (`id`),
+)ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+create table `customer`(
+	`id` int(10) NOT NULL AUTO_INCREMENT,
+    `name` varchar(128) NOT NULL,
+    `account_id` int(10) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `customer_id_UNIQUE` (`id`),
+    CONSTRAINT FK_AccountCustomer FOREIGN KEY (`account_id`)
+    REFERENCES baitap3.account(`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+create table `address`(
+	`id` int(10) NOT NULL AUTO_INCREMENT,
+    `street` varchar(50) NOT NULL,
+    `city` varchar(50) NOT NULL,
+    `country` varchar(50) NOT NULL,
+    `customer_id` int(10) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `address_id_UNIQUE` (`id`),
+    CONSTRAINT FK_CustomerAddress FOREIGN KEY (`customer_id`)
+    REFERENCES baitap3.customer(`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+create table `order`(
+	`id` int(10) NOT NULL AUTO_INCREMENT,
+    `date` date NOT NULL,
+    `customer_id` int(10) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `order_id_UNIQUE` (`id`),
+    CONSTRAINT FK_CustomerOrder FOREIGN KEY (`customer_id`)
+    REFERENCES baitap3.customer(`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+create table `order_list`(
+	`id` int(10) NOT NULL AUTO_INCREMENT,
+    `order_id` int(10) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `order_list_id_UNIQUE` (`id`),
+    CONSTRAINT FK_OrderOList FOREIGN KEY (`order_id`)
+    REFERENCES baitap3.order(`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+CREATE TABLE `book` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `author` varchar(45) NOT NULL,
+  `price` float NOT NULL,
+  `order_list_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `book_id_UNIQUE` (`id`),
+  UNIQUE KEY `title_UNIQUE` (`title`),
+  CONSTRAINT FK_OListBook FOREIGN KEY (`order_list_id`)
+  REFERENCES baitap3.order_list(`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
