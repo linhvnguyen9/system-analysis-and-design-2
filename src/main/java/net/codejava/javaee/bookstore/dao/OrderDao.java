@@ -1,6 +1,6 @@
 package net.codejava.javaee.bookstore.dao;
 
-import net.codejava.javaee.bookstore.entity.Order;
+import net.codejava.javaee.bookstore.model.Order;
 
 import java.sql.SQLException;
 import java.util.List;

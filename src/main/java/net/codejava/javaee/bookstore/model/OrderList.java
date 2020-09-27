@@ -1,4 +1,4 @@
-package net.codejava.javaee.bookstore.entity;
+package net.codejava.javaee.bookstore.model;
 
 import java.util.List;
 

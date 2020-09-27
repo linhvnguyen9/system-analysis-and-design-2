@@ -1,7 +1,7 @@
 package net.codejava.javaee.bookstore.dao;
 
 import net.codejava.javaee.bookstore.common.BaseDao;
-import net.codejava.javaee.bookstore.entity.Order;
+import net.codejava.javaee.bookstore.model.Order;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
