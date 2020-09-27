@@ -1,5 +1,7 @@
 package net.codejava.javaee.bookstore;
 
+import net.codejava.javaee.bookstore.model.Book;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
