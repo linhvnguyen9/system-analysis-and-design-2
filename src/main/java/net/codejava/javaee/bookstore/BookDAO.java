@@ -1,5 +1,7 @@
 package net.codejava.javaee.bookstore;
 
+import net.codejava.javaee.bookstore.entity.Book;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BookDAO {
-    private String jdbcURL;
-    private String jdbcUsername;
-    private String jdbcPassword;
+    private final String jdbcURL;
+    private final String jdbcUsername;
+    private final String jdbcPassword;
     private Connection jdbcConnection;
 
     public BookDAO(String jdbcURL, String jdbcUsername, String jdbcPassword) {
@@ -28,9 +30,6 @@ class BookDAO {
             } catch (ClassNotFoundException e) {
                 throw new SQLException(e);
             }
-            System.out.println("url " + jdbcURL);
-            System.out.println("uname " + jdbcUsername);
-            System.out.println("password " + jdbcPassword);
             jdbcConnection = DriverManager.getConnection(
                     jdbcURL, jdbcUsername, jdbcPassword);
         }
