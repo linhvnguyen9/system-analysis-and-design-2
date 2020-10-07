@@ -1,5 +1,8 @@
 package net.codejava.javaee.bookstore;
 
+import net.codejava.javaee.bookstore.dao.AccountDao;
+import net.codejava.javaee.bookstore.dao.AccountDaoImpl;
+import net.codejava.javaee.bookstore.model.Account;
 import net.codejava.javaee.bookstore.model.Book;
 
 import java.io.IOException;
@@ -11,18 +14,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class ControllerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private BookDAO bookDAO;
+    private AccountDao accountDao;
 
     public void init() {
         String jdbcURL = getServletContext().getInitParameter("jdbcURL");
         String jdbcUsername = getServletContext().getInitParameter("jdbcUsername");
         String jdbcPassword = getServletContext().getInitParameter("jdbcPassword");
 
-        bookDAO = new BookDAO(jdbcURL, jdbcUsername, jdbcPassword);
-
+        try {
+            bookDAO = new BookDAO(jdbcURL, jdbcUsername, jdbcPassword);
+            accountDao = new AccountDaoImpl(jdbcURL, jdbcUsername, jdbcPassword);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -51,12 +60,33 @@ public class ControllerServlet extends HttpServlet {
                 case "/update":
                     updateBook(request, response);
                     break;
+                case "/login":
+                    login(request, response);
+                    break;
                 default:
                     listBook(request, response);
                     break;
             }
         } catch (SQLException ex) {
             throw new ServletException(ex);
+        }
+    }
+
+    private void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        Account account = new Account();
+        account.setUsername(username);
+        account.setPassword(password);
+
+        if (accountDao.checkLogin(account)) {
+            //HttpSession session = request.getSession();
+            // session.setAttribute("username",username);
+            response.sendRedirect("BookList.jsp");
+        } else {
+            HttpSession session = request.getSession();
+            //session.setAttribute("user", username);
+            response.sendRedirect("login.jsp");
         }
     }
 

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderDaoImpl extends BaseDao<Order> implements OrderDao {
-    public OrderDaoImpl(String jdbcURL, String jdbcUsername, String jdbcPassword, Connection jdbcConnection) {
-        super(jdbcURL, jdbcUsername, jdbcPassword, jdbcConnection);
+    public OrderDaoImpl(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
+        super(jdbcURL, jdbcUsername, jdbcPassword);
     }
 
     @Override
