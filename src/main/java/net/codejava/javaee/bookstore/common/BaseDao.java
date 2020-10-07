@@ -11,11 +11,11 @@ public class BaseDao<T> {
     protected final String jdbcPassword;
     protected Connection jdbcConnection;
 
-    protected BaseDao(String jdbcURL, String jdbcUsername, String jdbcPassword, Connection jdbcConnection) {
+    protected BaseDao(String jdbcURL, String jdbcUsername, String jdbcPassword) throws SQLException {
         this.jdbcURL = jdbcURL;
         this.jdbcUsername = jdbcUsername;
         this.jdbcPassword = jdbcPassword;
-        this.jdbcConnection = jdbcConnection;
+        connect();
     }
 
     protected void connect() throws SQLException {
